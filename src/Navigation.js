@@ -25,15 +25,15 @@ const items = [
         children: <NetworkVisualisation/>,
     },
     {
-        key: '3',
+        key: '4',
         label: 'Interactive Report',
         children: <InteractiveReport/>,
     },
     {
-        key: '3',
+        key: '5',
         label: 'ERGM Analysis',
         children: <ERGMAnalysis/>
     },
 ];
-const App = () => <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
+const App = () => <Tabs defaultActiveKey="1" items={items} onChange={onChange} style ={{margin: '10px'}}/>;
 export default App;
