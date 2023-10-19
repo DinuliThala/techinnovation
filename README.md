@@ -68,3 +68,40 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm install react-scripts`
+
+This command installs React scripts, which are essential for bootstrapping a React application. You typically only need to run this once when setting up your project.
+
+### `npm install antd`
+
+Install Ant Design, a popular React UI library, to enhance your project's user interface.
+
+### `npm install antd@latest`
+
+If you want to ensure that you have the latest version of Ant Design, you can use this command to update it.
+
+### `npm install antd @ant-design/icons`
+
+Incorporate Ant Design icons to improve the visual appeal and functionality of your application.
+
+### `npm install --save-dev @babel/preset-react`
+
+This command installs Babel preset for React, allowing you to write JSX syntax and use modern React features.
+
+### `npm install --save-dev @babel/preset-env`
+
+Install Babel preset for environment-specific transpilation. It helps you ensure compatibility with different JavaScript environments.
+
+
+### `npm run electron-dev`
+
+Launch your Electron app in development mode. This command is typically used when you want to run your application as a desktop application.
+
+
+
