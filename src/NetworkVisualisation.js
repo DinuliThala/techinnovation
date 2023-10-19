@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Form, Input, Radio, Select} from 'antd';
-import ScatterPlot from "./Scatter";
+import ScatterPlot from "./Graph";
+import ForceDirectedGraph from "./Graph";
 
 const NetworkVisualisation = () => {
 
@@ -217,7 +218,7 @@ const NetworkVisualisation = () => {
                     </Form>
                 </div>
                 <div style={customStyles.plot}>
-                    <ScatterPlot/>
+                    <ForceDirectedGraph/>
                 </div>
             </div>
         </div>
