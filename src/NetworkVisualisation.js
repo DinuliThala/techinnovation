@@ -53,6 +53,8 @@ const NetworkVisualisation = () => {
         plot: {
             flex: 1,
             padding: '8px',
+            width: "100%",
+            height: '600px'
         },
     }
     return (

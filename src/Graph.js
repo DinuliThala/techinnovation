@@ -50,7 +50,7 @@ const ForceDirectedGraph = () => {
         };
     }, []);
 
-    return <div id="force-directed-graph" style={{ width: '100%', height: '400px' }}></div>;
+    return <div id="force-directed-graph" style={{ width: '100%', height: '800px' }}></div>;
 };
 
 export default ForceDirectedGraph;
