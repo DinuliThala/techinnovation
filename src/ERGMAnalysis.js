@@ -1,61 +1,88 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, Radio } from 'antd';
+import logo from './logo.svg';
+import './App.css';
+import Navigation from "./Navigation";
+
+import React from 'react';
+import { Form, Input, Radio, Checkbox, Upload, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+
 const ERGMAnalysis = () => {
-    const [form] = Form.useForm();
-    const [formLayout, setFormLayout] = useState('horizontal');
-    const onFormLayoutChange = ({ layout }) => {
-        setFormLayout(layout);
-    };
-    const formItemLayout =
-        formLayout === 'horizontal'
-            ? {
-                labelCol: {
-                    span: 4,
-                },
-                wrapperCol: {
-                    span: 14,
-                },
-            }
-            : null;
-    const buttonItemLayout =
-        formLayout === 'horizontal'
-            ? {
-                wrapperCol: {
-                    span: 14,
-                    offset: 4,
-                },
-            }
-            : null;
-    return (
-        <Form
-            {...formItemLayout}
-            layout={formLayout}
-            form={form}
-            initialValues={{
-                layout: formLayout,
-            }}
-            onValuesChange={onFormLayoutChange}
-            style={{
-                maxWidth: formLayout === 'inline' ? 'none' : 600,
-            }}
-        >
-            <Form.Item label="Form Layout" name="layout">
-                <Radio.Group value={formLayout}>
-                    <Radio.Button value="horizontal">Horizontal</Radio.Button>
-                    <Radio.Button value="vertical">Vertical</Radio.Button>
-                    <Radio.Button value="inline">Inline</Radio.Button>
-                </Radio.Group>
-            </Form.Item>
-            <Form.Item label="Field A">
-                <Input placeholder="input placeholder" />
-            </Form.Item>
-            <Form.Item label="Field B">
-                <Input placeholder="input placeholder" />
-            </Form.Item>
-            <Form.Item {...buttonItemLayout}>
-                <Button type="primary">Submit</Button>
-            </Form.Item>
-        </Form>
-    );
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>ERGM Analysis</h1>
+      <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Node A">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Node B">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Choose One">
+          <Radio.Group>
+            <Radio value="simulation">Simulation</Radio>
+            <Radio value="estimation">Estimation</Radio>
+            <Radio value="validation">Validation</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Select Options">
+          <Checkbox.Group>
+            <Checkbox value="include">Include</Checkbox>
+            <Checkbox value="directed">Directed</Checkbox>
+            <Checkbox value="fixed">Fixed</Checkbox>
+            <Checkbox value="fixedDensity">Fixed Density</Checkbox>
+          </Checkbox.Group>
+        </Form.Item>
+        <Form.Item label="Parameter">
+          <Form.Item
+            name="parameterFile"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e.fileList}
+            noStyle
+          >
+            <Upload
+              action="/upload"
+              listType="picture-card"
+              fileList={[]}
+            >
+              <Button icon={<PlusOutlined />}>Add File</Button>
+            </Upload>
+          </Form.Item>
+        </Form.Item>
+        <Form.Item label="Network File">
+          <Form.Item
+            name="networkFile"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e.fileList}
+            noStyle
+          >
+            <Upload
+              action="/upload"
+              listType="picture-card"
+              fileList={[]}
+            >
+              <Button icon={<PlusOutlined />}>Add File</Button>
+            </Upload>
+          </Form.Item>
+        </Form.Item>
+        <Form.Item label="Attribute File">
+          <Form.Item
+            name="attributeFile"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e.fileList}
+            noStyle
+          >
+            <Upload
+              action="/upload"
+              listType="picture-card"
+              fileList={[]}
+            >
+              <Button icon={<PlusOutlined />}>Add File</Button>
+            </Upload>
+          </Form.Item>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };
+
 export default ERGMAnalysis;
