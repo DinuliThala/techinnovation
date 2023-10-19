@@ -1,20 +1,28 @@
 import React from 'react';
-import {Card, Col, Divider, Row} from "antd";
+import {Button, Card, Divider, Row, Space} from "antd";
+import ChartConfig from "./ChartConfig";
+import {VerticalAlignBottomOutlined} from "@ant-design/icons";
 
 function Dashboard() {
     return (
         <div style ={{margin: '10px'}}>
             <Row>
                 <Card title="Processing Tools" extra={<a href="#">More</a>} style={{ width: '100%' }}>
-                    <p>Card content</p>
+                    <Space wrap>
+                        <Button icon={<VerticalAlignBottomOutlined />} size={'large'}>Data Import</Button>
+                        <Button>Pre processing</Button>
+                    </Space>
+
                 </Card>
             </Row>
             <Divider />
             <Row>
                 <Card title="Visualisation" extra={<a href="#">More</a>} style={{ width: '100%' }}>
-                    <p>Card content</p>
+                    <p><ChartConfig/></p>
                 </Card>
             </Row>
+
+
         </div>
 
     );
