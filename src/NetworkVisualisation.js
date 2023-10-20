@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Form, Input, Radio, Select} from 'antd';
 import ScatterPlot from "./Graph";
 import ForceDirectedGraph from "./Graph";
+import NodeGraph from "./Graph";
 
 const NetworkVisualisation = () => {
 
@@ -79,69 +80,69 @@ const NetworkVisualisation = () => {
                         </Form.Item>
                         <Form.Item label="Color">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="Red"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: 'red',
+                                        label: 'Red',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: 'green',
+                                        label: 'Green',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: 'blue',
+                                        label: 'Blue',
                                     }
                                 ]}
                             />
                         </Form.Item>
                         <Form.Item label="Size">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="5"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: '5',
+                                        label: '5',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: '6',
+                                        label: '6',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: '7',
+                                        label: '7',
                                     }
                                 ]}
                             />
                         </Form.Item>
                         <Form.Item label="Label">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="Bipartite Density"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: 'Bipartite Density',
+                                        label: 'Bipartite Density',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: 'Bipartite Ego',
+                                        label: 'Bipartite Ego',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: 'Bipartite Four Cycle',
+                                        label: 'Bipartite Four Cycle',
                                     }
                                 ]}
                             />
@@ -150,70 +151,73 @@ const NetworkVisualisation = () => {
                         </Form.Item>
                         <Form.Item label="Color">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="Blue"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: 'red',
+                                        label: 'Red',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: 'green',
+                                        label: 'Green',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: 'blue',
+                                        label: 'Blue',
                                     }
                                 ]}
-                            /> </Form.Item>
+                            />
+                        </Form.Item>
                         <Form.Item label="Size">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="5"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: '5',
+                                        label: '5',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: '6',
+                                        label: '6',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: '7',
+                                        label: '7',
                                     }
                                 ]}
-                            /> </Form.Item>
+                            />
+                        </Form.Item>
                         <Form.Item label="Label">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="Bipartite Ego"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: 'Bipartite Density',
+                                        label: 'Bipartite Density',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: 'Bipartite Ego',
+                                        label: 'Bipartite Ego',
                                     },
                                     {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
+                                        value: 'Bipartite Four Cycle',
+                                        label: 'Bipartite Four Cycle',
                                     }
                                 ]}
-                            /> </Form.Item>
+                            />
+                        </Form.Item>
                         <Form.Item {...buttonItemLayout}>
                             <Button type="primary">Submit</Button>
                         </Form.Item>
