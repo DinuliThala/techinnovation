@@ -103,125 +103,64 @@ function generateRandomLinks(nodes, probability) {
     }
     return links;
 }
-// import React, { useEffect } from 'react';
-// import * as echarts from 'echarts';
+
+// import React, { useEffect, useRef } from 'react';
+// import echarts from 'echarts';
 //
 // function ForceDirectedGraph() {
+//     const chartRef = useRef(null);
 //     useEffect(() => {
-//         // Data from your provided JSON
-//         const data = [
-//             {
-//                 t: 0,
-//                 BipartiteDensityA: 13.0,
-//                 BipartiteActivityA: 87.0,
-//                 BipartiteEgoTwoStarA: 495.0,
-//                 BipartiteAlterTwoStar1A: 866.0,
-//                 BipartiteAlterTwoStar2A: 522.0,
-//                 BipartiteFourCycle1A: 875.0,
-//                 BipartiteFourCycle2A: 643.0,
-//             },
-//             {
-//                 t: 100,
-//                 BipartiteDensityA: -8.0,
-//                 BipartiteActivityA: 9.0,
-//                 BipartiteEgoTwoStarA: 340.0,
-//                 BipartiteAlterTwoStar1A: 8.0,
-//                 BipartiteAlterTwoStar2A: 2.0,
-//                 BipartiteFourCycle1A: 455.0,
-//                 BipartiteFourCycle2A: 289.0,
-//             },
-//             {
-//                 t: 200,
-//                 BipartiteDensityA: -12.0,
-//                 BipartiteActivityA: -25.0,
-//                 BipartiteEgoTwoStarA: 169.0,
-//                 BipartiteAlterTwoStar1A: -258.0,
-//                 BipartiteAlterTwoStar2A: -103.0,
-//                 BipartiteFourCycle1A: 118.0,
-//                 BipartiteFourCycle2A: 71.0,
-//             },
-//             {
-//                 t: 300,
-//                 BipartiteDensityA: -2.0,
-//                 BipartiteActivityA: -14.0,
-//                 BipartiteEgoTwoStarA: 64.0,
-//                 BipartiteAlterTwoStar1A: -108.0,
-//                 BipartiteAlterTwoStar2A: -59.0,
-//                 BipartiteFourCycle1A: 1.0,
-//                 BipartiteFourCycle2A: -4.0,
-//             },
-//             {
-//                 t: 400,
-//                 BipartiteDensityA: -2.0,
-//                 BipartiteActivityA: -8.0,
-//                 BipartiteEgoTwoStarA: -5.0,
-//                 BipartiteAlterTwoStar1A: -3.0,
-//                 BipartiteAlterTwoStar2A: -2.0,
-//                 BipartiteFourCycle1A: 8.0,
-//                 BipartiteFourCycle2A: 19.0,
-//             },
-//             {
-//                 t: 500,
-//                 BipartiteDensityA: 1.0,
-//                 BipartiteActivityA: 7.0,
-//                 BipartiteEgoTwoStarA: 59.0,
-//                 BipartiteAlterTwoStar1A: 73.0,
-//                 BipartiteAlterTwoStar2A: 29.0,
-//                 BipartiteFourCycle1A: 144.0,
-//                 BipartiteFourCycle2A: 76.0,
-//             },
-//             {
-//                 t: 600,
-//                 BipartiteDensityA: 1.0,
-//                 BipartiteActivityA: -24.0,
-//                 BipartiteEgoTwoStarA: -84.0,
-//                 BipartiteAlterTwoStar1A: -228.0,
-//                 BipartiteAlterTwoStar2A: -80.0,
-//                 BipartiteFourCycle1A: -269.0,
-//                 BipartiteFourCycle2A: -88.0,
-//             },
-//             {
-//                 t: 700,
-//                 BipartiteDensityA: -1.0,
-//                 BipartiteActivityA: -37.0,
-//                 BipartiteEgoTwoStarA: -195.0,
-//                 BipartiteAlterTwoStar1A: -295.0,
-//                 BipartiteAlterTwoStar2A: -109.0,
-//                 BipartiteFourCycle1A: -307.0,
-//                 BipartiteFourCycle2A: -64.0,
-//             },
-//         ];
+//         const myChart = echarts.init(chartRef.current);
 //
-//         const chart = echarts.init(document.getElementById('forceDirectedGraph'));
-//
-//         const option = {
-//             series: [
-//                 {
-//                     type: 'graph',
-//                     layout: 'force',
-//                     symbolSize: 10, // Node size
-//                     draggable: true, // Allow node dragging
-//                     force: {
-//                         repulsion: 100, // Adjust the repulsion strength
-//                     },
-//                     data: data.map((item, index) => ({
-//                         name: `Node ${index + 1}`,
-//                         value: item.t,
-//                     })),
-//                     links: data.reduce((links, _, index) => {
-//                         if (index < data.length - 1) {
-//                             links.push({ source: index, target: index + 1 });
-//                         }
-//                         return links;
-//                     }, []),
-//                 },
-//             ],
+//         const fetchData = (url) => {
+//             return fetch(url)
+//                 .then(response => {
+//                     if (!response.ok) {
+//                         throw new Error('Network response was not ok');
+//                     }
+//                     return response.json();
+//                 })
+//                 .catch(error => {
+//                     if (error.name === 'TypeError') {
+//                         throw new Error('Network or CORS error: ' + error.message);
+//                     } else {
+//                         throw error;
+//                     }
+//                 });
 //         };
+//         const apiUrl = 'http://localhost:8000/upload/dza';
+//         fetchData(apiUrl)
+//             .then(data => {
+//                 // Assuming your data structure is an array of nodes and an array of links
+//                 const nodes = data.nodes;
+//                 const links = data.links;
 //
-//         chart.setOption(option);
+//                 const option = {
+//                     series: [
+//                         {
+//                             type: 'graph',
+//                             layout: 'force',
+//                             force: {
+//                                 repulsion: 100,
+//                             },
+//                             roam: true,
+//                             label: {
+//                                 show: true,
+//                             },
+//                             data: nodes,
+//                             links: links,
+//                         },
+//                     ],
+//                 };
+//
+//                 myChart.setOption(option);
+//             })
+//             .catch(error => {
+//                 console.error(error.message);
+//             });
 //     }, []);
-//
-//     return <div id="forceDirectedGraph" style={{ width: '100%', height: '500px' }} />;
+//     return <div ref={chartRef} style={{ width: '100%', height: '500px' }} />;
 // }
 //
 // export default ForceDirectedGraph;
+

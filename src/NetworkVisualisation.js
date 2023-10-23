@@ -166,7 +166,7 @@ const NetworkVisualisation = () => {
                                         label: 'Green',
                                     },
                                     {
-                                        value: 'blue',
+                                        value: 'blue ',
                                         label: 'Blue',
                                     }
                                 ]}

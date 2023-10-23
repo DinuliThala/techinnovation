@@ -78,7 +78,6 @@ const dataStatistics = [
     statistic: 'Standard Deviation',
     value: 0.2,
   },
-  // Add more rows with descriptive statistics
 ];
 
 const InteractiveReport = () => {
