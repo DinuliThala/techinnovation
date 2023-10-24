@@ -1,166 +1,154 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 
-const ForceDirectedGraph = () => {
+function ForceDirectedGraph() {
+    const chartRef = useRef(null);
+    const lineChartRef = useRef(null); // Ref for the line chart
+    const [data1, setData1] = useState(null);
+    const [data2, setData2] = useState(null);
+    const [meanValuesDZA, setMeanValuesDZA] = useState({});
+    const [meanValuesTheta, setMeanValuesTheta] = useState({});
+    const [activeTab, setActiveTab] = useState(1);
+    const columnNames = [ 'Density', 'Activity', 'Contagion', 'Binary', 'Continuous'];
+
     useEffect(() => {
-        const chartDom = document.getElementById('force-directed-graph');
-        const myChart = echarts.init(chartDom);
+        const myChart = echarts.init(chartRef.current);
+        const lineChart = echarts.init(lineChartRef.current); // Initialize line chart
 
-        // Sample data for the nodes in the graph
-        const nodes = [
-            { name: 'Node 1', category: 0 },
-            { name: 'Node 2', category: 0 },
-            { name: 'Node 3', category: 0 },
-            { name: 'Node 4', category: 0 },
-            { name: 'Node 5', category: 0 },
-            { name: 'Node 6', category: 0 },
-            { name: 'Node 7', category: 0 },
-            { name: 'Node 8', category: 0 },
-            { name: 'Node 9', category: 0 },
-            { name: 'Node 10', category: 0 },
-            { name: 'Node 11', category: 1 },
-            { name: 'Node 12', category: 1 },
-            { name: 'Node 13', category: 1 },
-            { name: 'Node 14', category: 1 },
-            { name: 'Node 15', category: 1 },
-            { name: 'Node 16', category: 1 },
-            { name: 'Node 17', category: 1 },
-            { name: 'Node 18', category: 1 },
-            { name: 'Node 19', category: 1 },
-            { name: 'Node 20', category: 1 },
-            { name: 'Node 21', category: 2 },
-            { name: 'Node 22', category: 2 },
-            { name: 'Node 23', category: 2 },
-            { name: 'Node 24', category: 2 },
-            { name: 'Node 25', category: 2 },
-            { name: 'Node 26', category: 3 },
-            { name: 'Node 27', category: 3 },
-            { name: 'Node 28', category: 3 },
-            { name: 'Node 29', category: 3 },
-            { name: 'Node 30', category: 3 },
-            // Add more nodes for additional categories
-        ];
+        const data = activeTab === 1 ? data1 : data2; // Use the active tab's data
 
-        // Define random links between nodes
-        const links = generateRandomLinks(nodes, 0.4);
+        if (data) {
+            // Visualize the data as a force-directed graph
+            const nodes = data.map(entry => ({
+                name: entry.t.toString(),
+                symbolSize: 10,
+            }));
 
-        // Define categories with different colors
-        const categories = [
-            { name: 'BipartiteDensityA', itemStyle: { color: 'red' } },
-            { name: 'Category 2', itemStyle: { color: 'blue' } },
-            { name: 'Category 3', itemStyle: { color: 'green' } },
-            { name: 'Category 4', itemStyle: { color: 'orange' } },
-            // Define categories with different colors
-            // Repeat this pattern for each category
-        ];
+            const links = data.slice(1).map((entry, index) => ({
+                source: entry.t.toString(),
+                target: data[index].t.toString(),
+            }));
 
-        // ECharts option configuration for the Force-Directed Graph
-        const option = {
-            series: [
-                {
-                    type: 'graph',
-                    layout: 'force',
-                    symbolSize: 20,
-                    draggable: true,
-                    data: nodes,
-                    links: links,
-                    categories: categories,
-                    roam: true,
-                    label: {
-                        show: false,
-                    },
-                    force: {
-                        repulsion: 100,
-                        edgeLength: 150,
-                    },
+            const option = {
+                title: {
+                    text: 'Force-Directed Graph Visualization',
                 },
-            ],
-        };
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'force',
+                        force: {
+                            repulsion: 100,
+                        },
+                        roam: true,
+                        label: {
+                            show: true,
+                        },
+                        data: nodes,
+                        links: links,
+                    },
+                ],
+            };
 
-        myChart.setOption(option);
+            myChart.setOption(option);
 
-        return () => {
-            myChart.dispose();
-        };
-    }, []);
+            // Create a line chart for mean data
+            const meanData = activeTab === 1 ? meanValuesDZA : meanValuesTheta;
+            const lineOption = {
+                title: {
+                    text: 'Mean Data',
+                },
+                grid: {
+                    left: '3%', // Adjust margins as needed
+                    right: '3%',
+                    bottom: '3%',
+                    containLabel: true,
+                },
+                xAxis: {
+                    type: 'category',
+                    data: columnNames,
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: [
+                    {
+                        data: columnNames.map(colName => meanData[colName]),
+                        type: 'line',
+                    },
+                ],
+            };
 
-    return <div id="force-directed-graph" style={{ width: '100%', height: '800px' }}></div>;
-};
 
-export default ForceDirectedGraph;
-
-function generateRandomLinks(nodes, probability) {
-    const links = [];
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-            if (Math.random() < probability) {
-                links.push({
-                    source: nodes[i].name,
-                    target: nodes[j].name,
-                });
-            }
+            lineChart.setOption(lineOption);
         }
-    }
-    return links;
+    }, [data1, data2, activeTab, meanValuesDZA, meanValuesTheta]);
+
+    useEffect(() => {
+        // Fetch data for the first tab (DZA)
+        if (activeTab === 1) {
+            const apiUrl = 'http://localhost:8000/upload/dza';
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    setData1(result.data);
+                    calculateMean(result.data, 'DZA');
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+        }
+
+        // Fetch data for the second tab (Theta)
+        if (activeTab === 2) {
+            const apiUrl = 'http://localhost:8000/upload/theta';
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    setData2(result.data);
+                    calculateMean(result.data, 'Theta');
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+        }
+    }, [activeTab]);
+
+    const calculateMean = (data, tab) => {
+        const meanValues = {};
+        columnNames.forEach(col => {
+            const columnData = data.map(entry => entry[col]);
+            const mean = columnData.reduce((acc, val) => acc + val, 0) / columnData.length;
+            meanValues[col] = mean;
+        });
+
+        if (tab === 'DZA') {
+            setMeanValuesDZA(meanValues);
+        } else if (tab === 'Theta') {
+            setMeanValuesTheta(meanValues);
+        }
+    };
+
+    return (
+        <div>
+            <div>
+                <button onClick={() => setActiveTab(1)}>DZA</button>
+                <button onClick={() => setActiveTab(2)}>Theta</button>
+            </div>
+            <div ref={chartRef} style={{ width: '300px', height: '500px' }} />
+            <div ref={lineChartRef} style={{ width: '300px', height: '300px' }} />
+        </div>
+    );
 }
 
-// import React, { useEffect, useRef } from 'react';
-// import echarts from 'echarts';
-//
-// function ForceDirectedGraph() {
-//     const chartRef = useRef(null);
-//     useEffect(() => {
-//         const myChart = echarts.init(chartRef.current);
-//
-//         const fetchData = (url) => {
-//             return fetch(url)
-//                 .then(response => {
-//                     if (!response.ok) {
-//                         throw new Error('Network response was not ok');
-//                     }
-//                     return response.json();
-//                 })
-//                 .catch(error => {
-//                     if (error.name === 'TypeError') {
-//                         throw new Error('Network or CORS error: ' + error.message);
-//                     } else {
-//                         throw error;
-//                     }
-//                 });
-//         };
-//         const apiUrl = 'http://localhost:8000/upload/dza';
-//         fetchData(apiUrl)
-//             .then(data => {
-//                 // Assuming your data structure is an array of nodes and an array of links
-//                 const nodes = data.nodes;
-//                 const links = data.links;
-//
-//                 const option = {
-//                     series: [
-//                         {
-//                             type: 'graph',
-//                             layout: 'force',
-//                             force: {
-//                                 repulsion: 100,
-//                             },
-//                             roam: true,
-//                             label: {
-//                                 show: true,
-//                             },
-//                             data: nodes,
-//                             links: links,
-//                         },
-//                     ],
-//                 };
-//
-//                 myChart.setOption(option);
-//             })
-//             .catch(error => {
-//                 console.error(error.message);
-//             });
-//     }, []);
-//     return <div ref={chartRef} style={{ width: '100%', height: '500px' }} />;
-// }
-//
-// export default ForceDirectedGraph;
-
+export default ForceDirectedGraph;

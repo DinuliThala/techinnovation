@@ -49,12 +49,13 @@ const NetworkVisualisation = () => {
         },
         formSe: {
             flex: 1,
-            padding: '8px',
+            padding: '2px',
+         
         },
         plot: {
             flex: 1,
-            padding: '8px',
-            width: "100%",
+            padding: '1px',
+            width: "600px",
             height: '600px'
         },
     }

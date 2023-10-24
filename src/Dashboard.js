@@ -16,11 +16,7 @@ function Dashboard() {
                 </Card>
             </Row>
             <Divider />
-            <Row>
-                <Card title="Visualisation" extra={<a href="#">More</a>} style={{ width: '100%' }}>
-                    <p><ChartConfig/></p>
-                </Card>
-            </Row>
+            
 
 
         </div>
